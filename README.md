@@ -60,8 +60,8 @@ O ShowUp utiliza uma abordagem baseada em serviços, separando responsabilidades
 ### Entidade: `users`
 | Campo | Tipo | Descrição |
 |-------|------|-----------|
-| uid (PK) | String | Identificador único |
-| name | String | Nome do usuário |
+| id_usuario (PK) | String | Identificador único |
+| nome | String | Nome do usuário |
 | email | String | Endereço de e-mail |
 | bio | String | Descrição breve |
 
@@ -69,12 +69,12 @@ O ShowUp utiliza uma abordagem baseada em serviços, separando responsabilidades
 | Campo | Tipo | Descrição |
 |-------|------|-----------|
 | id (PK) | String | ID do projeto |
-| user_uid (FK) | String | Relacionamento com usuário |
-| title | String | Título do projeto |
-| description | String | Detalhamento técnico |
-| technologies | Array<String> | Tecnologias utilizadas |
+| id_usuario (FK) | String | Relacionamento com usuário |
+| titulo | String | Título do projeto |
+| descricao | String | Detalhamento técnico |
+| tecnologias | Array<String> | Tecnologias utilizadas |
 | main_image_url | String | URL da imagem principal |
-| created_at | Timestamp | Data de criação |
+| criada_em | Timestamp | Data de criação |
 
 ---
 
