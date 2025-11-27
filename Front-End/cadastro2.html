@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShowUp - Completar Perfil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(90deg, #f3e1ff, #ffffff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #8a2be2;
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo .tagline {
+            color: #666;
+            font-size: 1rem;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.15);
+            padding: 40px 35px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #f0e6ff;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.2);
+        }
+        
+        .card h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .card h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #8a2be2, #9370db);
+            border-radius: 3px;
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .progress-steps:before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #f0e6ff;
+            z-index: 1;
+        }
+        
+        .progress-bar {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(to right, #8a2be2, #9370db);
+            width: 50%;
+            z-index: 2;
+            transition: width 0.5s ease;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 3;
+        }
+        
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #f0e6ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #aaa;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active .step-circle {
+            background: #8a2be2;
+            border-color: #8a2be2;
+            color: white;
+        }
+        
+        .step.completed .step-circle {
+            background: #8a2be2;
+            border-color: #8a2be2;
+            color: white;
+        }
+        
+        .step.completed .step-circle:after {
+            content: '✓';
+        }
+        
+        .step-label {
+            font-size: 0.8rem;
+            color: #aaa;
+            font-weight: 500;
+        }
+        
+        .step.active .step-label {
+            color: #8a2be2;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            border: 1.5px solid #e1d5f5;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: #faf9ff;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #8a2be2;
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.15);
+            outline: none;
+            background-color: white;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        
+        .optional-badge {
+            background: #f0e6ff;
+            color: #8a2be2;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            margin-left: 8px;
+            font-weight: 500;
+        }
+        
+        .image-upload-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #f0e6ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 3px solid #e1d5f5;
+            transition: all 0.3s ease;
+        }
+        
+        .avatar-preview:hover {
+            border-color: #8a2be2;
+        }
+        
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .avatar-preview i {
+            font-size: 40px;
+            color: #9370db;
+        }
+        
+        .upload-btn {
+            background: #f0e6ff;
+            color: #8a2be2;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-btn:hover {
+            background: #e1d5f5;
+        }
+        
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+        
+        .btn {
+            padding: 16px 30px;
+            background: linear-gradient(to right, #8a2be2, #9370db);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn.next {
+            flex: 1;
+        }
+        
+        .btn.back {
+            background: #f0e6ff;
+            color: #8a2be2;
+            margin-right: 15px;
+            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.1);
+        }
+        
+        .btn.back:hover {
+            background: #e1d5f5;
+        }
+        
+        .btn.next:hover {
+            background: linear-gradient(to right, #7a1bd2, #8360d1);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(138, 43, 226, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn i {
+            margin-left: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .btn:hover i {
+            transform: translateX(5px);
+        }
+        
+        .skip-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .skip-link a {
+            color: #8a2be2;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .skip-link a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 480px) {
+            .card {
+                padding: 30px 25px;
+            }
+            
+            .logo h1 {
+                font-size: 2.3rem;
+            }
+            
+            .card h2 {
+                font-size: 1.6rem;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+            }
+            
+            .btn.back {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>ShowUp</h1>
+            <p class="tagline">Complete seu perfil</p>
+        </div>
+        
+        <div class="card">
+            <div class="progress-steps">
+                <div class="progress-bar" id="progressBar"></div>
+                <div class="step completed">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Cadastro</div>
+                </div>
+                <div class="step active">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Perfil</div>
+                </div>
+            </div>
+            
+            <h2>Personalize seu Perfil</h2>
+            
+            <form id="profileForm">
+                <div class="image-upload-container">
+                    <div class="avatar-preview" id="avatarPreview">
+                        <i class="fas fa-user"></i>
+                        <img id="previewImage" src="" alt="Preview">
+                    </div>
+                    <button type="button" class="upload-btn" id="uploadBtn">
+                        <i class="fas fa-upload"></i> Escolher Imagem
+                    </button>
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                </div>
+                
+                <div class="form-group">
+                    <label for="imageUrl">URL da imagem <span class="optional-badge">opcional</span></label>
+                    <input type="url" id="imageUrl" name="imageUrl" placeholder="https://exemplo.com/sua-foto.jpg">
+                </div>
+                
+                <div class="form-group">
+                    <label for="bio">Bio <span class="optional-badge">opcional</span></label>
+                    <textarea id="bio" name="bio" placeholder="Conte um pouco sobre você..."></textarea>
+                </div>
+                
+                <div class="btn-container">
+                    <button type="button" class="btn back" id="backBtn">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </button>
+                    <button type="submit" class="btn next">
+                        Seguinte <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+            
+            <div class="skip-link">
+                <a href="#" id="skipLink">Pular esta etapa</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Aqui normalmente enviaria os dados para o servidor
+            alert('Perfil atualizado com sucesso!');
+            // Redirecionar para a próxima página
+        });
+        
+        // Upload de imagem
+        document.getElementById('uploadBtn').addEventListener('click', function() {
+            document.getElementById('imageInput').click();
+        });
+        
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const previewImage = document.getElementById('previewImage');
+                    const avatarIcon = document.querySelector('.avatar-preview i');
+                    
+                    previewImage.src = event.target.result;
+                    previewImage.style.display = 'block';
+                    avatarIcon.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // URL da imagem
+        document.getElementById('imageUrl').addEventListener('input', function() {
+            const url = this.value;
+            if (url) {
+                const previewImage = document.getElementById('previewImage');
+                const avatarIcon = document.querySelector('.avatar-preview i');
+                
+                previewImage.src = url;
+                previewImage.style.display = 'block';
+                avatarIcon.style.display = 'none';
+                
+                // Em caso de erro no carregamento da imagem
+                previewImage.onerror = function() {
+                    previewImage.style.display = 'none';
+                    avatarIcon.style.display = 'block';
+                    alert('Não foi possível carregar a imagem da URL fornecida.');
+                };
+            }
+        });
+        
+        // Botão voltar
+        document.getElementById('backBtn').addEventListener('click', function() {
+            window.history.back();
+        });
+        
+        // Pular etapa
+        document.getElementById('skipLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Redirecionar para a próxima página sem salvar as informações
+            alert('Você pulou a personalização do perfil.');
+            // Redirecionar para a próxima página
+        });
+    </script>
+</body>
+</html>
