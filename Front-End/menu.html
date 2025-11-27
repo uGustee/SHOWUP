@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShowUp - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(90deg, #f3e1ff, #ffffff);
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(180deg, #f5e5ff, #e4bcff);
+            padding: 25px 50px;
+            border-radius: 25px;
+            margin: 25px 40px 0;
+            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.25);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            z-index: 1;
+        }
+        
+        .logo {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #8a2be2;
+            text-shadow: 2px 2px 4px rgba(138, 43, 226, 0.3);
+            letter-spacing: 1.5px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 35px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .nav a {
+            text-decoration: none;
+            color: #7a1bd2;
+            font-weight: 600;
+            padding: 12px 20px;
+            transition: all 0.3s;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .nav a:hover {
+            color: #8a2be2;
+            background: rgba(255, 255, 255, 0.7);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+        }
+        
+        .nav a.active {
+            color: white;
+            background: linear-gradient(135deg, #8a2be2, #a855f7);
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8a2be2, #a855f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+        
+        .welcome-section {
+            background: white;
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 8px 35px rgba(138, 43, 226, 0.15);
+            margin-bottom: 40px;
+            border-left: 6px solid #8a2be2;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #f3e1ff, transparent);
+            border-radius: 0 0 0 100px;
+            opacity: 0.7;
+        }
+        
+        .welcome-section h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .welcome-section p {
+            color: #666;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 45px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.12);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid #f0e6ff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(138, 43, 226, 0.25);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #8a2be2, #a855f7);
+        }
+        
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f3e1ff, #e1d5f5);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: #8a2be2;
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.2);
+            transform: rotate(45deg);
+        }
+        
+        .stat-icon i {
+            transform: rotate(-45deg);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #8a2be2;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(138, 43, 226, 0.15);
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .new-project-btn {
+            background: linear-gradient(135deg, #8a2be2, #a855f7);
+            color: white;
+            border: none;
+            padding: 20px 45px;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 50px;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
+            gap: 15px;
+            max-width: 320px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .new-project-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .new-project-btn:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(138, 43, 226, 0.5);
+        }
+        
+        .new-project-btn:hover::before {
+            left: 100%;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-left: 15px;
+            border-left: 5px solid #8a2be2;
+        }
+        
+        .section-title i {
+            color: #8a2be2;
+            font-size: 2rem;
+        }
+        
+        .projects-grid {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 8px 35px rgba(138, 43, 226, 0.15);
+            min-height: 350px;
+            border: 2px solid #f0e6ff;
+            position: relative;
+        }
+        
+        .projects-grid::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #8a2be2, #a855f7, #8a2be2);
+            border-radius: 26px;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .recent-projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: linear-gradient(135deg, #faf9ff, #f5f0ff);
+            border-radius: 18px;
+            padding: 30px;
+            border: 2px solid #f0e6ff;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8a2be2, #a855f7);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(138, 43, 226, 0.2);
+            border-color: #8a2be2;
+        }
+        
+        .project-card h3 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        
+        .project-card p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .project-meta i {
+            color: #8a2be2;
+            margin-right: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 25px;
+                padding: 20px;
+                margin: 20px 20px 0;
+            }
+            
+            .nav {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .recent-projects {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">ShowUp</div>
+        <nav class="nav">
+            <a href="#" class="active">Projetos</a>
+            <a href="#">Amigos</a>
+            <a href="#">Ajuda</a>
+        </nav>
+        <div class="user-profile">
+            <div class="user-avatar">JS</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="welcome-section">
+            <h1>Bem-vindo de volta, João!</h1>
+            <p>Veja o resumo das suas atividades e projetos recentes</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-folder"></i>
+                </div>
+                <div class="stat-number">07</div>
+                <div class="stat-label">Meus projetos</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-file-upload"></i>
+                </div>
+                <div class="stat-number">12</div>
+                <div class="stat-label">Arquivos enviados</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">01</div>
+                <div class="stat-label">Colaborações</div>
+            </div>
+        </div>
+        
+        <button class="new-project-btn">
+            <i class="fas fa-plus"></i>
+            Novo projeto
+        </button>
+        
+        <div class="section-title">
+            <i class="fas fa-clock"></i>
+            Últimos projetos abertos
+        </div>
+        
+        <div class="projects-grid">
+            <div class="recent-projects">
+                <div class="project-card">
+                    <h3>Design System</h3>
+                    <p>Sistema de design completo para aplicação mobile com componentes reutilizáveis</p>
+                    <div class="project-meta">
+                        <span><i class="fas fa-clock"></i> 2h atrás</span>
+                        <span><i class="fas fa-folder"></i> Design</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Apresentação Anual</h3>
+                    <p>Slides e relatórios para reunião de resultados do trimestre</p>
+                    <div class="project-meta">
+                        <span><i class="fas fa-clock"></i> 1 dia atrás</span>
+                        <span><i class="fas fa-folder"></i> Business</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Site Corporativo</h3>
+                    <p>Redesign completo do site institucional com novas funcionalidades</p>
+                    <div class="project-meta">
+                        <span><i class="fas fa-clock"></i> 3 dias atrás</span>
+                        <span><i class="fas fa-folder"></i> Desenvolvimento</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.new-project-btn').addEventListener('click', function() {
+            alert('Criar novo projeto - Esta funcionalidade abrirá um modal para criação de projeto');
+        });
+        
+        // Adicionar efeito de clique nos cards de projeto
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', function() {
+                alert('Abrir projeto: ' + this.querySelector('h3').textContent);
+            });
+        });
+    </script>
+</body>
+</html>
