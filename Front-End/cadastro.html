@@ -240,6 +240,10 @@
             <h1>ShowUp</h1>
             <p class="tagline">Sua plataforma de eventos favorita</p>
         </div>
+
+        <div class="login-link">
+    Já tem uma conta? <a href="login.html">Faça login</a>
+        </div>
         
         <div class="card">
             <h2>Criar Conta</h2>
@@ -286,7 +290,17 @@
         </div>
     </div>
 
+    
+
     <script>
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        
+        alert('Cadastro realizado com sucesso!');
+        window.location.href = 'meus-projetos.html';
+    });
+        
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
