@@ -1,0 +1,8 @@
+Backend ShowUp - Plano de Desenvolvimento
+
+Vou construir o backend do ShowUp usando Node.js com Express e MongoDB. Escolhi essas tecnologias porque já trabalho com JavaScript no frontend e o MongoDB é flexível para os portfólios que podem ter estruturas variadas.
+A arquitetura será em camadas simples: models para os dados, routes para os endpoints, controllers para a lógica e middleware para segurança. Vou usar JWT para autenticação e bcrypt para proteger senhas.
+Desenvolvimento em 3 etapas:
+
+Primeiro, o alicerce: servidor, banco de dados, cadastro e login de usuários. Depois as funcionalidades principais: CRUD de portfólios e projetos, upload de imagens e perfis. Por último, o sistema de colaboração: amigos, convites e compartilhamento.
+Vou começar pelo essencial e evoluir conforme ganho experiência. O importante é ter uma base sólida que funcione bem com nosso frontend existente.
