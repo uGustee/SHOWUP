@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amigos & Colaborações - ShowUp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(90deg, #f3e1ff, #ffffff);
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(180deg, #f5e5ff, #e4bcff);
+            padding: 25px 50px;
+            border-radius: 0 0 25px 25px;
+            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.25);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            z-index: 1;
+        }
+        
+        .logo {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #8a2be2;
+            text-shadow: 2px 2px 4px rgba(138, 43, 226, 0.3);
+            letter-spacing: 1.5px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 35px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .nav a {
+            text-decoration: none;
+            color: #7a1bd2;
+            font-weight: 600;
+            padding: 12px 20px;
+            transition: all 0.3s;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .nav a:hover {
+            color: #8a2be2;
+            background: rgba(255, 255, 255, 0.7);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+        }
+        
+        .nav a.active {
+            color: white;
+            background: linear-gradient(135deg, #8a2be2, #a855f7);
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8a2be2, #a855f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+        
+        .page-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .page-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.5;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.1);
+            margin-bottom: 30px;
+            border: 2px solid #f0e6ff;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0e6ff;
+        }
+        
+        .friend-item, .collab-item, .invite-item {
+            background: #faf9ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid #f0e6ff;
+            transition: all 0.3s ease;
+        }
+        
+        .friend-item:hover, .collab-item:hover, .invite-item:hover {
+            border-color: #8a2be2;
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.1);
+        }
+        
+        .friend-header, .collab-header, .invite-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .friend-info, .collab-info, .invite-info {
+            flex: 1;
+        }
+        
+        .friend-name, .collab-name, .invite-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .friend-role, .collab-role, .invite-role {
+            color: #8a2be2;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+        
+        .friend-bio, .invite-description {
+            color: #666;
+            font-style: italic;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .friend-actions, .collab-actions, .invite-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 8px 18px;
+            border: 1px solid #8a2be2;
+            border-radius: 8px;
+            background: white;
+            color: #8a2be2;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: #8a2be2;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .action-btn.primary {
+            background: #8a2be2;
+            color: white;
+        }
+        
+        .action-btn.primary:hover {
+            background: #7a1bd2;
+        }
+        
+        .divider {
+            height: 1px;
+            background: #f0e6ff;
+            margin: 30px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 25px;
+                padding: 20px;
+            }
+            
+            .nav {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
+            
+            .section {
+                padding: 25px;
+            }
+            
+            .friend-header, .collab-header, .invite-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .friend-actions, .collab-actions, .invite-actions {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">ShowUp</div>
+        <nav class="nav">
+            <a href="#">Portfólios</a>
+            <a href="#">Projetos</a>
+            <a href="#" class="active">Amigos</a>
+            <a href="#">Ajuda</a>
+        </nav>
+        <div class="user-profile">
+            <div class="user-avatar">JS</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">Amigos & Colaborações</h1>
+            <p class="page-subtitle">Conecte-se com outros criadores e colabore em portfólios</p>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Meus amigos</h2>
+            
+            <div class="friend-item">
+                <div class="friend-header">
+                    <div class="friend-info">
+                        <div class="friend-name">Joana Santana</div>
+                        <div class="friend-role">UX Designer</div>
+                        <div class="friend-bio">Apaixonada por criar experiências</div>
+                    </div>
+                </div>
+                <div class="friend-actions">
+                    <button class="action-btn">Ver portfólio</button>
+                    <button class="action-btn primary">Convidar para portfólio</button>
+                </div>
+            </div>
+            
+            <div class="friend-item">
+                <div class="friend-header">
+                    <div class="friend-info">
+                        <div class="friend-name">João Victor de L...</div>
+                        <div class="friend-role">Designer de Moda</div>
+                    </div>
+                </div>
+                <div class="friend-actions">
+                    <button class="action-btn">Ver portfólio</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Minhas colaborações</h2>
+            
+            <div class="collab-item">
+                <div class="collab-header">
+                    <div class="collab-info">
+                        <div class="collab-name">Portfólio 2025</div>
+                        <div class="collab-role">Gustavo Silva - Editor</div>
+                    </div>
+                </div>
+                <div class="collab-actions">
+                    <button class="action-btn primary">Abrir</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <h2 class="section-title">Convites</h2>
+            
+            <div class="invite-item">
+                <div class="invite-header">
+                    <div class="invite-info">
+                        <div class="invite-name">Julia Pandoris</div>
+                        <div class="invite-role">UX Designer</div>
+                        <div class="invite-description">para Portfólio PUCPR - Design</div>
+                    </div>
+                </div>
+                <div class="invite-actions">
+                    <button class="action-btn">Ver portfólio</button>
+                    <button class="action-btn primary">Aceitar</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <h2 class="section-title">Convites enviados</h2>
+            
+            <div class="invite-item">
+                <div class="invite-header">
+                    <div class="invite-info">
+                        <div class="invite-name">Isadora J. Dias</div>
+                        <div class="invite-role">UX Designer</div>
+                        <div class="invite-description">para Portfólio PUCPR - Design</div>
+                    </div>
+                </div>
+                <div class="invite-actions">
+                    <button class="action-btn">Ver portfólio</button>
+                    <button class="action-btn">Ver portfólio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.action-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.textContent;
+                const friendName = this.closest('.friend-item, .invite-item, .collab-item')?.querySelector('.friend-name, .invite-name, .collab-name')?.textContent || 'usuário';
+                
+                if (action === 'Ver portfólio') {
+                    alert(`Abrindo portfólio de ${friendName}`);
+                } else if (action === 'Convidar para portfólio') {
+                    alert(`Enviando convite para ${friendName}`);
+                } else if (action === 'Aceitar') {
+                    alert(`Convite de ${friendName} aceito!`);
+                } else if (action === 'Abrir') {
+                    alert(`Abrindo colaboração`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
