@@ -262,7 +262,12 @@
     <div class="container">
         <div class="hero-content">
             <div class="logo-container">
-<img src="showpu.png" alt="ShowUp" style="max-width: 220px; height: auto;">
+                <!-- ESPAÇO PARA A IMAGEM DA LOGO -->
+                <div class="logo-placeholder">
+                    <i class="fas fa-image"></i>
+                    Logo ShowUp
+                </div>
+                <p class="logo-caption">Substitua pelo arquivo da sua logo</p>
             </div>
             
             <h1 class="tagline">
@@ -293,25 +298,32 @@
         <div class="auth-card">
             <h2>Bem-vindo</h2>
             <div class="auth-buttons">
-                <button class="auth-btn login-btn">
+                <button class="auth-btn login-btn" onclick="window.location.href='login.html'">
                     <i class="fas fa-sign-in-alt"></i>
                     Login
                 </button>
-                <button class="auth-btn signup-btn">
+                <button class="auth-btn signup-btn" onclick="window.location.href='cadastro.html'">
                     <i class="fas fa-user-plus"></i>
                     Cadastro
                 </button>
+            </div>
+            
+            <div class="guest-option">
+                <p>Quer apenas explorar?</p>
+                <a href="meus-projetos.html" class="guest-link">
+                    Acesse como visitante 
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </div>
 
     <script>
-        document.querySelector('.login-btn').addEventListener('click', function() {
-            alert('Redirecionando para página de Login...');
-        });
-        
-        document.querySelector('.signup-btn').addEventListener('click', function() {
-            alert('Redirecionando para página de Cadastro...');
+        // Acesso como visitante
+        document.querySelector('.guest-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Acessando como visitante...');
+            window.location.href = 'meus-projetos.html';
         });
     </script>
 </body>
