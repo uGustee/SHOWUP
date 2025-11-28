@@ -154,14 +154,18 @@
             box-shadow: 0 8px 30px rgba(138, 43, 226, 0.15);
             margin-bottom: 40px;
             border: 2px solid #f0e6ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
         }
         
         .search-container {
             display: flex;
             gap: 15px;
             align-items: center;
+            flex: 1;
             max-width: 600px;
-            margin: 0 auto;
         }
         
         .search-icon {
@@ -188,6 +192,29 @@
         
         .search-input::placeholder {
             color: #999;
+        }
+        
+        .new-project-btn {
+            background: linear-gradient(135deg, #8a2be2, #9370db);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.3);
+            white-space: nowrap;
+        }
+        
+        .new-project-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
+            background: linear-gradient(135deg, #7a1bd2, #8360d1);
         }
         
         .portfolios-grid {
@@ -278,22 +305,220 @@
             box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
         }
         
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
         
-        .empty-state i {
-            font-size: 4rem;
-            color: #d8c7ff;
+        .modal {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            background: #8a2be2;
+            color: white;
+            padding: 25px;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .modal-title::before {
+            content: "#";
+            font-size: 1.6rem;
+        }
+        
+        .modal-content {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+            font-size: 1rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1d5f5;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: #faf9ff;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #8a2be2;
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
+            background: white;
+        }
+        
+        .upload-section {
+            text-align: center;
+            padding: 30px;
+            border: 2px dashed #e1d5f5;
+            border-radius: 10px;
+            margin: 25px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #faf9ff;
+        }
+        
+        .upload-section:hover {
+            border-color: #8a2be2;
+            background: #f5f0ff;
+        }
+        
+        .upload-text {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .divider {
+            height: 1px;
+            background: #f0e6ff;
+            margin: 30px 0;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .theme-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .theme-option {
+            flex: 1;
+            padding: 20px 15px;
+            border: 2px solid #e1d5f5;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #faf9ff;
+            font-weight: 500;
+        }
+        
+        .theme-option:hover {
+            border-color: #8a2be2;
+        }
+        
+        .theme-option.active {
+            border-color: #8a2be2;
+            background: #f3e1ff;
+            color: #8a2be2;
+        }
+        
+        .projects-section {
+            margin-top: 30px;
+        }
+        
+        .projects-header {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        
+        .category {
             margin-bottom: 20px;
         }
         
-        .empty-state h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+        .category-title {
+            font-weight: bold;
             color: #333;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        
+        .category-title:hover {
+            background: #f8f5ff;
+        }
+        
+        .category-title::before {
+            content: "•";
+            color: #8a2be2;
+            font-size: 1.2rem;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-cancel {
+            background: #f5f5f5;
+            color: #666;
+        }
+        
+        .btn-cancel:hover {
+            background: #e5e5e5;
+        }
+        
+        .btn-create {
+            background: linear-gradient(135deg, #8a2be2, #9370db);
+            color: white;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+        }
+        
+        .btn-create:hover {
+            background: linear-gradient(135deg, #7a1bd2, #8360d1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
         }
         
         @media (max-width: 768px) {
@@ -309,6 +534,20 @@
                 justify-content: center;
             }
             
+            .search-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-container {
+                max-width: 100%;
+            }
+            
+            .new-project-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
             .portfolios-grid {
                 grid-template-columns: 1fr;
             }
@@ -317,12 +556,12 @@
                 padding: 0 20px;
             }
             
-            .search-container {
+            .theme-options {
                 flex-direction: column;
             }
             
-            .search-input {
-                width: 100%;
+            .modal-actions {
+                flex-direction: column;
             }
         }
     </style>
@@ -352,6 +591,10 @@
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" class="search-input" placeholder="Buscar portfólios...">
             </div>
+            <button class="new-project-btn" onclick="abrirModalCriarPortfolio()">
+                <i class="fas fa-plus"></i>
+                Novo projeto
+            </button>
         </div>
         
         <div class="portfolios-grid">
@@ -409,7 +652,6 @@
                 </div>
             </div>
             
-            <!-- Projeto D -->
             <div class="portfolio-card">
                 <div class="portfolio-header">
                     <div>
@@ -425,6 +667,71 @@
                         <i class="fas fa-folder-open"></i>
                         Abrir
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalCriarPortfolio" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Criar portfólio</div>
+            </div>
+            
+            <div class="modal-content">
+                <div class="form-group">
+                    <label class="form-label">Nome do portfólio</label>
+                    <input type="text" class="form-input" value="Meu portfólio de Front-end">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Descrição</label>
+                    <input type="text" class="form-input" value="Apresentação dos meus principais projetos de desenvolvimento e interfaces.">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Área de atuação</label>
+                    <input type="text" class="form-input" value="Desenvolvimento Web">
+                </div>
+                
+                <div class="upload-section" onclick="alert('Abrindo seletor de arquivos...')">
+                    <div class="upload-text">Envie uma imagem de destaque para seu portfólio</div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="section-title">Tema</div>
+                <div class="theme-options">
+                    <div class="theme-option" onclick="selecionarTema(this)">Branco</div>
+                    <div class="theme-option" onclick="selecionarTema(this)">Escuro</div>
+                    <div class="theme-option active" onclick="selecionarTema(this)">Lilás ShowUp</div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="projects-section">
+                    <div class="projects-header">Selecione os projetos que deseja adicionar ao portfólio</div>
+                    
+                    <div class="category">
+                        <div class="category-title" onclick="toggleCategoria(this)">Todos</div>
+                    </div>
+                    
+                    <div class="category">
+                        <div class="category-title" onclick="toggleCategoria(this)">Websites</div>
+                    </div>
+                    
+                    <div class="category">
+                        <div class="category-title" onclick="toggleCategoria(this)">Apps</div>
+                    </div>
+                    
+                    <div class="category">
+                        <div class="category-title" onclick="toggleCategoria(this)">Outros</div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-cancel" onclick="fecharModalCriarPortfolio()">Cancelar</button>
+                    <button class="btn btn-create" onclick="criarPortfolio()">Criar Portfólio</button>
                 </div>
             </div>
         </div>
@@ -454,6 +761,43 @@
                 const projectTitle = this.closest('.portfolio-card').querySelector('.portfolio-title').textContent;
                 alert(`Abrindo: ${projectTitle}`);
             });
+        });
+        
+        function abrirModalCriarPortfolio() {
+            document.getElementById('modalCriarPortfolio').style.display = 'flex';
+        }
+        
+        function fecharModalCriarPortfolio() {
+            document.getElementById('modalCriarPortfolio').style.display = 'none';
+        }
+        
+        function selecionarTema(elemento) {
+            document.querySelectorAll('.theme-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            elemento.classList.add('active');
+        }
+        
+        function toggleCategoria(elemento) {
+            elemento.classList.toggle('checked');
+        }
+        
+        function criarPortfolio() {
+            const nome = document.querySelector('.modal .form-input').value;
+            alert(`Portfólio "${nome}" criado com sucesso!`);
+            fecharModalCriarPortfolio();
+        }
+        
+        document.getElementById('modalCriarPortfolio').addEventListener('click', function(e) {
+            if (e.target === this) {
+                fecharModalCriarPortfolio();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                fecharModalCriarPortfolio();
+            }
         });
     </script>
 </body>
