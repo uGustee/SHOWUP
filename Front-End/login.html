@@ -162,17 +162,23 @@
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Aqui normalmente validaria as credenciais
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
             if (username && password) {
                 alert('Login realizado com sucesso!');
-                // Redirecionar para a página principal
             } else {
                 alert('Por favor, preencha todos os campos.');
             }
         });
+
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        
+        alert('Login realizado com sucesso!');
+        window.location.href = 'meus-projetos.html';
+    });
     </script>
 </body>
 </html>
