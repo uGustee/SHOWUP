@@ -3,328 +3,461 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShowUp - Plataforma de Portfólios</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>ShowUp - Backend Python</title>
+    
+    <!-- PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2023.11.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"></script>
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
         body {
-            background: linear-gradient(90deg, #f3e1ff, #ffffff);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
             padding: 20px;
+            background: linear-gradient(90deg, #f3e1ff, #ffffff);
         }
         
         .container {
-            width: 100%;
-            max-width: 1200px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-        
-        .hero-content {
-            color: #333;
-            text-align: left;
-        }
-        
-        .logo-container {
-            margin-bottom: 40px;
-        }
-        
-        .logo-placeholder {
-            width: 220px;
-            height: 90px;
-            background: rgba(138, 43, 226, 0.05);
-            border: 2px dashed #8a2be2;
+            background: white;
+            padding: 30px;
             border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.2);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
             color: #8a2be2;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .logo-placeholder:hover {
-            background: rgba(138, 43, 226, 0.1);
-            border-color: #7a1bd2;
-        }
-        
-        .logo-placeholder i {
-            font-size: 1.5rem;
-            margin-right: 10px;
-        }
-        
-        .logo-caption {
-            color: #666;
-            font-size: 0.85rem;
-            font-style: italic;
-        }
-        
-        .tagline {
-            font-size: 2.2rem;
-            font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 40px;
-            color: #333;
-        }
-        
-        .highlight {
-            color: #8a2be2;
-            position: relative;
-        }
-        
-        .highlight::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #8a2be2, #9370db);
-            border-radius: 2px;
-        }
-        
-        .auth-card {
-            background: white;
-            border-radius: 25px;
-            padding: 50px 45px;
-            box-shadow: 0 15px 40px rgba(138, 43, 226, 0.15);
             text-align: center;
-            border: 1px solid #f0e6ff;
-            position: relative;
-            overflow: hidden;
         }
         
-        .auth-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #8a2be2, #9370db);
-        }
-        
-        .auth-card h2 {
-            color: #333;
-            font-size: 2.2rem;
-            margin-bottom: 40px;
-            font-weight: 700;
-        }
-        
-        .auth-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .auth-btn {
-            padding: 18px 30px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-        
-        .login-btn {
-            background: linear-gradient(135deg, #8a2be2, #9370db);
-            color: white;
-            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.3);
-        }
-        
-        .login-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
-        }
-        
-        .signup-btn {
-            background: white;
-            color: #8a2be2;
-            border: 2px solid #8a2be2;
-            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.1);
-        }
-        
-        .signup-btn:hover {
-            background: #f8f5ff;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.2);
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 40px;
-        }
-        
-        .feature {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #666;
-            font-size: 1rem;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 10px;
-            border: 1px solid #f0e6ff;
-        }
-        
-        .feature i {
-            color: #8a2be2;
-            font-size: 1.2rem;
-            width: 24px;
-        }
-        
-        .guest-option {
-            margin-top: 30px;
-            padding-top: 25px;
-            border-top: 1px solid #f0e6ff;
-        }
-        
-        .guest-option p {
-            color: #666;
+        .form-group {
             margin-bottom: 15px;
-            font-size: 0.95rem;
         }
         
-        .guest-link {
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e1d5f5;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        button {
+            background: #8a2be2;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #7a1bd2;
+        }
+        
+        .user-card, .portfolio-card {
+            background: #faf9ff;
+            border: 2px solid #e1d5f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .tab {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom: 2px solid #8a2be2;
             color: #8a2be2;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            font-weight: bold;
         }
         
-        .guest-link:hover {
-            color: #7a1bd2;
-            gap: 12px;
+        .tab-content {
+            display: none;
         }
         
-        @media (max-width: 968px) {
-            .container {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                text-align: center;
-            }
-            
-            .hero-content {
-                text-align: center;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .auth-card {
-                padding: 40px 25px;
-            }
-            
-            .tagline {
-                font-size: 1.8rem;
-            }
-            
-            .auth-card h2 {
-                font-size: 1.8rem;
-            }
-            
-            .logo-placeholder {
-                width: 180px;
-                height: 70px;
-            }
+        .tab-content.active {
+            display: block;
         }
     </style>
 </head>
 <body>
+    <h1>🔧 Backend ShowUp - Python</h1>
+    
     <div class="container">
-        <div class="hero-content">
-            <div class="logo-container">
-                <!-- ESPAÇO PARA A IMAGEM DA LOGO -->
-                <div class="logo-placeholder">
-                    <i class="fas fa-image"></i>
-                    Logo ShowUp
-                </div>
-                <p class="logo-caption">Substitua pelo arquivo da sua logo</p>
-            </div>
-            
-            <h1 class="tagline">
-                Plataforma de <span class="highlight">Criação</span> e 
-                <span class="highlight">Gestão</span> de Portfólios
-            </h1>
-            
-            <div class="features">
-                <div class="feature">
-                    <i class="fas fa-rocket"></i>
-                    <span>Portfólios profissionais</span>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-users"></i>
-                    <span>Compartilhamento fácil</span>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Análises de performance</span>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-magic"></i>
-                    <span>Templates personalizáveis</span>
-                </div>
-            </div>
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('cadastro')">Cadastro</div>
+            <div class="tab" onclick="showTab('login')">Login</div>
+            <div class="tab" onclick="showTab('portfolios')">Portfólios</div>
+            <div class="tab" onclick="showTab('projetos')">Projetos</div>
+            <div class="tab" onclick="showTab('dados')">Ver Dados</div>
         </div>
         
-        <div class="auth-card">
-            <h2>Bem-vindo</h2>
-            <div class="auth-buttons">
-                <button class="auth-btn login-btn" onclick="window.location.href='login.html'">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Login
-                </button>
-                <button class="auth-btn signup-btn" onclick="window.location.href='cadastro.html'">
-                    <i class="fas fa-user-plus"></i>
-                    Cadastro
-                </button>
+        <!-- Tab Cadastro -->
+        <div id="cadastro" class="tab-content active">
+            <h2>📝 Cadastrar Usuário</h2>
+            <div class="form-group">
+                <label>Nome:</label>
+                <input type="text" id="nome" placeholder="Seu nome completo">
             </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" id="email" placeholder="seu@email.com">
+            </div>
+            <div class="form-group">
+                <label>Senha:</label>
+                <input type="password" id="senha" placeholder="Sua senha">
+            </div>
+            <div class="form-group">
+                <label>Profissão:</label>
+                <input type="text" id="profissao" placeholder="Ex: UX Designer">
+            </div>
+            <button onclick="cadastrarUsuario()">Cadastrar</button>
+        </div>
+        
+        <!-- Tab Login -->
+        <div id="login" class="tab-content">
+            <h2>🔐 Login</h2>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" id="loginEmail" placeholder="seu@email.com">
+            </div>
+            <div class="form-group">
+                <label>Senha:</label>
+                <input type="password" id="loginSenha" placeholder="Sua senha">
+            </div>
+            <button onclick="fazerLogin()">Entrar</button>
+            <div id="loginResult"></div>
+        </div>
+        
+        <!-- Tab Portfólios -->
+        <div id="portfolios" class="tab-content">
+            <h2>🎨 Criar Portfólio</h2>
+            <div class="form-group">
+                <label>Título:</label>
+                <input type="text" id="portfolioTitulo" placeholder="Meu Portfólio Incrível">
+            </div>
+            <div class="form-group">
+                <label>Descrição:</label>
+                <textarea id="portfolioDesc" rows="3" placeholder="Descreva seu portfólio..."></textarea>
+            </div>
+            <button onclick="criarPortfolio()">Criar Portfólio</button>
             
-            <div class="guest-option">
-                <p>Quer apenas explorar?</p>
-                <a href="meus-projetos.html" class="guest-link">
-                    Acesse como visitante 
-                    <i class="fas fa-arrow-right"></i>
-                </a>
+            <h3>Meus Portfólios</h3>
+            <div id="listaPortfolios"></div>
+        </div>
+        
+        <!-- Tab Projetos -->
+        <div id="projetos" class="tab-content">
+            <h2>🚀 Criar Projeto</h2>
+            <div class="form-group">
+                <label>Portfólio:</label>
+                <select id="selectPortfolio"></select>
             </div>
+            <div class="form-group">
+                <label>Nome do Projeto:</label>
+                <input type="text" id="projetoTitulo" placeholder="Meu Projeto Incrível">
+            </div>
+            <div class="form-group">
+                <label>Descrição:</label>
+                <textarea id="projetoDesc" rows="3" placeholder="Descreva seu projeto..."></textarea>
+            </div>
+            <button onclick="criarProjeto()">Criar Projeto</button>
+            
+            <h3>Projetos</h3>
+            <div id="listaProjetos"></div>
+        </div>
+        
+        <!-- Tab Dados -->
+        <div id="dados" class="tab-content">
+            <h2>📊 Dados do Sistema</h2>
+            <button onclick="verDados()">Carregar Dados</button>
+            <div id="dadosResult"></div>
         </div>
     </div>
 
+    <!-- Backend Python -->
+    <py-script>
+        # Banco de dados em memória
+        usuarios = []
+        portfolios = []
+        projetos = []
+        usuario_logado = None
+        
+        class Usuario:
+            def __init__(self, nome, email, senha, profissao):
+                self.id = len(usuarios) + 1
+                self.nome = nome
+                self.email = email
+                self.senha = senha
+                self.profissao = profissao
+                self.data_criacao = "2024-01-01"
+            
+            def to_dict(self):
+                return {
+                    'id': self.id,
+                    'nome': self.nome,
+                    'email': self.email,
+                    'profissao': self.profissao,
+                    'data_criacao': self.data_criacao
+                }
+        
+        class Portfolio:
+            def __init__(self, titulo, descricao, usuario_id):
+                self.id = len(portfolios) + 1
+                self.titulo = titulo
+                self.descricao = descricao
+                self.usuario_id = usuario_id
+                self.data_criacao = "2024-01-01"
+                self.tema = "lilás"
+            
+            def to_dict(self):
+                return {
+                    'id': self.id,
+                    'titulo': self.titulo,
+                    'descricao': self.descricao,
+                    'usuario_id': self.usuario_id,
+                    'tema': self.tema,
+                    'data_criacao': self.data_criacao
+                }
+        
+        class Projeto:
+            def __init__(self, nome, descricao, portfolio_id, usuario_id):
+                self.id = len(projetos) + 1
+                self.nome = nome
+                self.descricao = descricao
+                self.portfolio_id = portfolio_id
+                self.usuario_id = usuario_id
+                self.data_criacao = "2024-01-01"
+            
+            def to_dict(self):
+                return {
+                    'id': self.id,
+                    'nome': self.nome,
+                    'descricao': self.descricao,
+                    'portfolio_id': self.portfolio_id,
+                    'usuario_id': self.usuario_id,
+                    'data_criacao': self.data_criacao
+                }
+        
+        # Funções do backend
+        def cadastrar_usuario(nome, email, senha, profissao):
+            # Verificar se email já existe
+            for usuario in usuarios:
+                if usuario.email == email:
+                    return {"erro": "Email já cadastrado"}
+            
+            # Criar novo usuário
+            novo_usuario = Usuario(nome, email, senha, profissao)
+            usuarios.append(novo_usuario)
+            
+            return {
+                "sucesso": True,
+                "mensagem": "Usuário criado com sucesso!",
+                "usuario": novo_usuario.to_dict()
+            }
+        
+        def fazer_login(email, senha):
+            for usuario in usuarios:
+                if usuario.email == email and usuario.senha == senha:
+                    global usuario_logado
+                    usuario_logado = usuario
+                    return {
+                        "sucesso": True,
+                        "mensagem": f"Bem-vindo, {usuario.nome}!",
+                        "usuario": usuario.to_dict()
+                    }
+            
+            return {"erro": "Email ou senha incorretos"}
+        
+        def criar_portfolio(titulo, descricao):
+            if not usuario_logado:
+                return {"erro": "Usuário não está logado"}
+            
+            novo_portfolio = Portfolio(titulo, descricao, usuario_logado.id)
+            portfolios.append(novo_portfolio)
+            
+            return {
+                "sucesso": True,
+                "mensagem": "Portfólio criado com sucesso!",
+                "portfolio": novo_portfolio.to_dict()
+            }
+        
+        def criar_projeto(nome, descricao, portfolio_id):
+            if not usuario_logado:
+                return {"erro": "Usuário não está logado"}
+            
+            portfolio_id = int(portfolio_id)
+            novo_projeto = Projeto(nome, descricao, portfolio_id, usuario_logado.id)
+            projetos.append(novo_projeto)
+            
+            return {
+                "sucesso": True,
+                "mensagem": "Projeto criado com sucesso!",
+                "projeto": novo_projeto.to_dict()
+            }
+        
+        def get_portfolios_usuario():
+            if not usuario_logado:
+                return {"erro": "Usuário não está logado"}
+            
+            portfolios_usuario = [p for p in portfolios if p.usuario_id == usuario_logado.id]
+            return {
+                "sucesso": True,
+                "portfolios": [p.to_dict() for p in portfolios_usuario]
+            }
+        
+        def get_projetos_portfolio(portfolio_id):
+            portfolio_id = int(portfolio_id)
+            projetos_portfolio = [p for p in projetos if p.portfolio_id == portfolio_id]
+            return {
+                "sucesso": True,
+                "projetos": [p.to_dict() for p in projetos_portfolio]
+            }
+        
+        def get_dados_sistema():
+            return {
+                "usuarios": [u.to_dict() for u in usuarios],
+                "portfolios": [p.to_dict() for p in portfolios],
+                "projetos": [p.to_dict() for p in projetos],
+                "usuario_logado": usuario_logado.to_dict() if usuario_logado else None
+            }
+        
+        # Funções para o JavaScript chamar
+        def py_cadastrar_usuario():
+            nome = Element("nome").element.value
+            email = Element("email").element.value
+            senha = Element("senha").element.value
+            profissao = Element("profissao").element.value
+            
+            resultado = cadastrar_usuario(nome, email, senha, profissao)
+            alert(str(resultado))
+        
+        def py_fazer_login():
+            email = Element("loginEmail").element.value
+            senha = Element("loginSenha").element.value
+            
+            resultado = fazer_login(email, senha)
+            Element("loginResult").element.innerHTML = str(resultado)
+        
+        def py_criar_portfolio():
+            titulo = Element("portfolioTitulo").element.value
+            descricao = Element("portfolioDesc").element.value
+            
+            resultado = criar_portfolio(titulo, descricao)
+            alert(str(resultado))
+            atualizar_lista_portfolios()
+        
+        def py_criar_projeto():
+            portfolio_id = Element("selectPortfolio").element.value
+            nome = Element("projetoTitulo").element.value
+            descricao = Element("projetoDesc").element.value
+            
+            resultado = criar_projeto(nome, descricao, portfolio_id)
+            alert(str(resultado))
+            atualizar_lista_projetos()
+        
+        def py_ver_dados():
+            dados = get_dados_sistema()
+            Element("dadosResult").element.innerHTML = f"<pre>{str(dados)}</pre>"
+        
+        def py_get_portfolios():
+            return get_portfolios_usuario()
+        
+        def py_get_projetos(portfolio_id):
+            return get_projetos_portfolio(portfolio_id)
+        
+        # Adicionar alguns dados de exemplo
+        usuario_exemplo = Usuario("João Designer", "joao@showup.com", "123456", "UX Designer")
+        usuarios.append(usuario_exemplo)
+        
+        portfolio_exemplo = Portfolio("Meu Portfólio", "Projetos incríveis", 1)
+        portfolios.append(portfolio_exemplo)
+        
+        projeto_exemplo = Projeto("Site Corporativo", "Desenvolvimento completo", 1, 1)
+        projetos.append(projeto_exemplo)
+        
+        print("✅ Backend Python carregado!")
+        print("👤 Usuário exemplo: joao@showup.com / 123456")
+    </py-script>
+
     <script>
-        // Acesso como visitante
-        document.querySelector('.guest-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Acessando como visitante...');
-            window.location.href = 'meus-projetos.html';
-        });
+        // Funções JavaScript para interface
+        function showTab(tabName) {
+            // Esconder todas as tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostrar tab selecionada
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        function cadastrarUsuario() {
+            pyscript.interpreter.globals.get('py_cadastrar_usuario')();
+        }
+        
+        function fazerLogin() {
+            pyscript.interpreter.globals.get('py_fazer_login')();
+        }
+        
+        function criarPortfolio() {
+            pyscript.interpreter.globals.get('py_criar_portfolio')();
+        }
+        
+        function criarProjeto() {
+            pyscript.interpreter.globals.get('py_criar_projeto')();
+        }
+        
+        function verDados() {
+            pyscript.interpreter.globals.get('py_ver_dados')();
+        }
+        
+        async function atualizar_lista_portfolios() {
+            try {
+                const resultado = await pyscript.interpreter.globals.get('py_get_portfolios')();
+                const lista = document.getElementById('listaPortfolios');
+                
+                if (resultado.sucesso) {
+                    let html = '';
+                    resultado.portfolios.forEach(portfolio => {
+                        html += `
+                            <div class="portfolio-card">
+                                <h4>${portfolio.titulo}</h4>
+                                <p>${portfolio.descricao}</p>
+                                <small>Tema: ${portfolio.tema} | ID: ${portfolio.id}</small>
+                            </div>
+                        `;
+                    });
+                    lista.innerHTML = html;
+                }
+            } catch (error) {
+                console.log('Erro ao carregar portfolios:', error);
+            }
+        }
+        
+        // Carregar dados iniciais
+        setTimeout(() => {
+            atualizar_lista_portfolios();
+        }, 1000);
     </script>
 </body>
 </html>
